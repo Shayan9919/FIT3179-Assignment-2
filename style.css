@@ -1,0 +1,47 @@
+/* Base page container (a centered, page-like column) */
+:root{
+    --page-max: 1024px;
+    --bg: #5a86df;
+    --ink: #1b1f24;
+    --card: #ffffff;
+  }
+  
+  body { font-family: "Nunito";   background: var(--bg);margin: 0; }
+  
+  .page-wrap{
+    max-width: 1400px;
+    margin: 50px auto;
+    background: var(--card);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border-radius: 14px;
+    padding: clamp(16px, 2.4vw, 28px);
+    
+  }
+  
+  /* Headings & text */
+
+  .section{ font-size: 20px; }
+  .section-title{padding-bottom: 1em;  }
+  .section-subtitle{ margin: 0 0 8px 0; font-weight: 700; }
+  .bullets{ margin: 8px 0 0 20px;font-size: 20px; }
+
+  
+  /* Visualisation blocks */
+  .vis-block{
+    width: 100%;
+    min-height: 320px;
+    background: transparent;     
+    border: none;               
+    border-radius: 0;            
+    padding-bottom: 3em;  
+                    
+  }
+
+  
+  .page-footer{
+    padding: 16px;           
+    margin-top: 24px;
+    color: var(--ink);
+    text-align: right;
+  }
+  

@@ -1,0 +1,59 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": 300,
+    "config": { "axis": { "grid": false } },
+    "data": {"url":"speeds_gdp_2017_2024.csv"},
+  
+    "params": [
+      { "name": "HighlightAU", "value": false,
+        "bind": {"input":"checkbox","name":" Highlight Australia "} }
+    ],
+  
+    "layer": [
+
+      {
+        "transform": [
+          {"filter": "isValid(datum.avg_download_mbps) && isValid(datum.gdp_pc_usd)"}
+        ],
+        "mark": {"type":"circle", "size":70},
+        "encoding": {
+          "x": {"field":"gdp_pc_usd","type":"quantitative","title":"GDP per capita (US$)",
+                "scale":{"type":"log"}, "axis":{"tickCount":6, "format":"~s"}},
+          "y": {"field":"avg_download_mbps","type":"quantitative","title":"Average Download Speed (Mbps)"},
+          "color": {
+            "condition": {"test":"HighlightAU", "value":"#cccccc"},
+            "field":"year","type":"ordinal","scale":{"scheme":"tableau10"}, "legend":{"title":"Year"}
+          },
+          "opacity": {"expr": "HighlightAU ? 0.15 : 0.6"},
+          "tooltip":[
+            {"field":"country"},{"field":"year"},
+            {"field":"avg_download_mbps","title":"Mbps","format":".1f"},
+            {"field":"gdp_pc_usd","title":"GDP pc","format":",.0f"}
+          ]
+        }
+      },
+  
+
+      {
+        "transform": [
+          {"filter": "isValid(datum.avg_download_mbps) && isValid(datum.gdp_pc_usd)"},
+          {"filter": "datum.iso3 == 'AUS' || datum.country == 'Australia'"}
+        ],
+        "mark": {"type":"circle", "size":110},
+        "encoding": {
+          "x": {"field":"gdp_pc_usd","type":"quantitative","scale":{"type":"log"}},
+          "y": {"field":"avg_download_mbps","type":"quantitative"},
+          "color": {"field":"year","type":"ordinal","scale":{"scheme":"tableau10"}, "legend": null},
+          "opacity": {"expr": "HighlightAU ? 0.95 : 0"},
+          "tooltip": [
+            {"field":"country"},
+            {"field":"year"},
+            {"field":"avg_download_mbps","title":"Mbps","format":".1f"},
+            {"field":"gdp_pc_usd","title":"GDP pc","format":",.0f"}
+          ]
+        }
+      }
+    ]
+  }
+  

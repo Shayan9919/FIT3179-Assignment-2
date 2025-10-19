@@ -1,0 +1,85 @@
+{
+  "$schema":"https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 400,
+
+  "config": {
+    "view": { "stroke": null }
+  },
+
+  "data":{"url":"Internet_speeds.csv",
+  "format": { "type": "csv", "parse": { "year": "number", "avg_download_mbps": "number" }}},
+  "params":[
+    {"name":"YearSelection","value":2024,"bind":{"input":"select","options":[2017,2018,2019,2020,2021,2022,2023,2024], 
+  "name":"Year Selection: "} }
+  ],
+  "transform":[
+    {"filter":"datum.year == YearSelection"},
+    {"filter": "isValid(datum.avg_download_mbps)"},
+    {"window": [{"op": "rank", "as": "rk"}], "sort": [{"field": "avg_download_mbps", "order": "descending"}]},
+    {"filter": "datum.rk <= 20 || datum.country == 'Australia'"}
+  ],
+
+  "encoding":{
+    "y": { "field": "country","title":null, "type": "nominal", "sort": {"field":"avg_download_mbps","order":"descending"}, 
+    "axis": { "grid": false } },
+    "x": { "field": "avg_download_mbps", "type": "quantitative",
+    "axis": { "grid": false } }
+  },
+  
+
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "avg_download_mbps",
+          "type": "quantitative",
+          "title": "Average Download Speed (Mbps)"
+        },
+        "y": {
+          "field": "country",
+          "type": "nominal",
+          "title": "Country"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.country == 'Australia'",
+            "value": "red"
+          },
+          "field": "avg_download_mbps",
+          "type": "quantitative",
+          "scale": {"scheme": "purpleblue"},
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "country", "title": "Country"},
+          {"field": "avg_download_mbps", "title": "Avg Mbps", "format": ".2f"},
+          {"field": "rk", "title": "Rank"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "avg_download_mbps",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "country",
+          "type": "nominal"
+        },
+        "text": {
+          "field": "avg_download_mbps",
+          "type": "quantitative",
+          "format": ".1f"
+        }
+      }
+    }
+  ]
+}

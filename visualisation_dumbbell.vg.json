@@ -1,0 +1,67 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 360,
+
+  "config": {
+    "view": { "stroke": null }
+  },
+
+  "data": {
+    "url": "Internet_speeds.csv",
+    "format": { "type": "csv", "parse": { "year": "number", "avg_download_mbps": "number" } }
+  },
+
+  "transform": [
+    {
+      "joinaggregate": [
+        { "op": "mean", "field": "avg_download_mbps", "as": "world_mean" }
+      ],
+      "groupby": ["year"]
+    },
+    { "filter": "upper(datum.iso3) == 'AUS'" },
+    { "calculate": "datum.avg_download_mbps", "as": "aus_mbps" },
+    { "fold": ["world_mean", "aus_mbps"], "as": ["series", "value"] }
+  ],
+
+  "layer": [
+    {
+      "transform": [
+        {
+          "aggregate": [
+            { "op": "min", "field": "value", "as": "vmin" },
+            { "op": "max", "field": "value", "as": "vmax" }
+          ],
+          "groupby": ["year"]
+        }
+      ],
+      "mark": { "type": "rule", "strokeWidth": 2 },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal", "title": "Year" },
+        "y": { "field": "vmin", "type": "quantitative", "title": "Average Download Speed (Mbps)" },
+        "y2": { "field": "vmax" }
+      }
+    },
+    {
+      "mark": { "type": "point", "filled": true, "size": 90 },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "value", "type": "quantitative" },
+        "color": {
+          "field": "series",
+          "type": "nominal",
+          "title": "",
+          "scale": { "domain": ["world_mean", "aus_mbps"], "range": ["purple", "red"] },
+          "legend": { "labelExpr": "datum.label === 'world_mean' ? 'World mean' : 'Australia'" }
+        },
+        
+        "tooltip": [
+          { "field": "year" },
+          { "field": "series", "title": "Series" },
+          { "field": "value", "title": "Avg Mbps", "format": ".1f" }
+        ]
+        
+      }
+    }
+  ]
+}

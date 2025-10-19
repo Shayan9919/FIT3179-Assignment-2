@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fixed broadband download speed (Mbps)</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+
+    <!--Google font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+   <!--style embedding-->
+  <link rel="stylesheet" href="style.css">
+
+  <!--Vega libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+    <!--linking .js file-->
+  <script src="vega_lite_vis.js"> </script>
+
+  <style>
+    #main-title {
+      text-align: center;   /* centers the text inside the h1 */
+      margin: 0.5em;
+      font-size: 45px;
+      font-weight: 700;
+    }
+  </style>
+  
+
+</head>
+
+<body>
+  <div class="page-wrap">
+
+    <h1 id="main-title">Global Internet Speed vs. Australia Comparisons (2017 - 2024)</h1>
+
+    <!--map vis-->
+    <div class="pure-g">
+      <div class="pure-u-1">
+        <h2 class="section-title" style="padding-top: 3em">Fixed Broadband download speed per country</h2>
+        <h5 class="section-subtitle" style="margin-top: -2.5em;">Functionalities: Year selection - Countries are clickable</h5>
+        <div id="map" class="vis-block " aria-label="Choropleth map visualisation"></div>
+      </div>
+    </div>
+
+    <div class="section pure-u-1 bullets" >
+      <p>
+        This map shows the average fixed-broadband download speeds by country from 2017 to 2024 to reveal where 
+        the world is fast, middling or lagging. 
+        In 2024, the <strong>highest speeds</strong> concentrate in some gulf countries like United Arab Emirates or Saudi Arabia, 
+        parts of East/Southeast Asia in Thailand and advanced European economies like France, Denmark and Spain.</p>
+
+        <p>
+        Some countries are among the top one's during all years. North America, Canada and some european countries 
+        <strong>remained fast</strong>, reflecting a good infrastructure. Australia sits around the global middle and sometimes lower tier. 
+        </p>
+    </div>
+
+        <!-- scatter plot -->
+        <div class="pure-g">
+          <div class="pure-u-1">
+            <h2 class="section-title">GDP per capita vs. fixed broadband speed (2017–2024)</h2>
+            <h5 class="section-subtitle" style="margin-top: -2.5em;">Functionalities: Highlight Australia</h5>
+            <div id="scatter" class="vis-block"></div>
+          </div>
+        </div>
+
+        <div class="section pure-u-1 bullets" >
+          <ul>
+            <li>Richer economies generally reflect a <strong>faster fixed-broadband</strong> that shows a clear positive association.</li>
+            <br>
+            <li>Some places with <strong>lower GDP</strong> still perform well that shows local policy and investment matter.</li>
+            <br>
+            <li>Across 2017–2024, <strong>speeds rise</strong> almost everywhere, especially after 2020.</li>
+            <br>
+            <li>Australia’s cluster performance is <strong>steady</strong>, not wildly swinging.</li>
+            <br>
+            <li> Australia shows a significantly <strong>lower speed</strong> in latest years than the countries with a similar income closer to Australia in earlier years. <br> (eg. Au 71.9 Mbps in 2024 vs USA 75 Mbps in 2017)</li>
+          </ul>
+        </div>
+    
+        <!--ranked bar vis-->
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <h2 class="section-title"> Top 20 countries per year vs. Australia</h2>
+        <h5 class="section-subtitle" style="margin-top: -2.5em;">Functionalities: Year selection</h5>
+        <div id="ranked-bar" class="vis-block" style="max-width: 650px"></div>
+
+      </div>
+      
+      <div class="pure-u-1-2 section" style="padding-top: 4em;">
+        <p>From 2017–2024, Singapore and Hong Kong <strong>showing a high speed</strong> repeatedly and stay over the top while other countries experience more rapid changes.</p> 
+        <p> United Arab Emirates, Qatar, Chile and Thailand accelerate through nationwide fibre and peering upgrades. <strong>Top speeds are approaching</strong> 250–300 Mbps in 2023–2024 across multiple countries.</p>
+        <p> Europe provides <strong>consistent depth</strong> in the top twenty: Switzerland, Spain, France, Denmark, Romania, Iceland and Liechtenstein appear frequently, clustering around 180–225 Mbps by 2024, indicating mature broadband markets and investment.</p>
+        <p>Australia improved over years but still remains outside the top group each year and typically <strong>two to four times slower</strong> than leaders. Results suggest fibre rollout and geography raising costs for upgrades.</p>
+      </div>
+    </div>
+
+    
+    <!--dumbbell vis-->
+    <div class="pure-g">
+      <div class="pure-u-1-2 section" style="padding-top: 5em;padding-right: 7em; max-width: 550px;">
+        <p>From 2017 to 2024, the <strong>world average rises</strong> from 31 to 85 Mbps, while Australia grows from 25.5 to 72 Mbps. Australia leads in 2021, matches 2022 and continue growing in 2024 slightly.</p>
+        <p> Crossovers suggest differences in upgrade timing. Australia leads from <strong>major fibre upgrades</strong> around 2020, but later improvements were slower than other countries, potentially reflecting investment cycles, density differences and post pandemic traffic growth. </p>
+        <p>2022 dip likely reflects the <strong>Russia–Ukraine war and energy shock</strong> disrupting networks along with method changes in the dataset (country coverage, aggregation)</p>
+      </div>
+
+      <div class="pure-u-1-2">
+        <h2 class="section-title" style="padding-left: 2.5em;">World's yearly average speed vs. Australia </h2>
+        <div id="dumbbell" class="vis-block"></div>
+
+      </div>
+    </div>
+
+    <!-- heatmap vis -->
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <h2 class="section-title">Australian states fixed download speeds (2019–2024)</h2>
+        <div id="heatmap" class="vis-block" style="max-width:1100px;margin:0 auto"></div>
+      </div>
+
+      <div class="pure-u-1-2 section" style="padding-top: 8em">
+        <p>Every state <strong>improves year by year </strong>from 2019 to 2024. A clear shift appears around 2021–2023, then another jump in 2024.</p>
+        <p>Victoria and New South Wales <strong>sit near the top</strong> across years, while Northern Territory and Tasmania remain lower. Queensland and South Australia stay in the middle. Gaps narrow as speeds rise.</p>
+        <p>State figures <strong>skew higher</strong> because they are tests weighted and metro-heavy (more samples from fast urban fibre users). While the global dataset is a country-level average across many slower nations and uses different aggregation, so its mean is lower.</p>
+      </div>
+    </div>
+
+    <div class="pure-u-1-2">
+      <h2 class="section-title"> What we found?</h2>
+    </div>
+    <div class="section pure-u-1 bullets" >
+      <ul>
+        <li><strong>Australia vs world:</strong> 2017–2024 data shows <strong>Australia improved</strong> but fell behind the world mean again by 2023–24.</li>
+        <br>
+        <li><strong>Leaders gap:</strong> Rankings confirm top nations sustain 200–300 Mbps, while Australia remains <strong>outside the top-20</strong>.</li>
+        <br>
+        <li><strong>GDP vs speed:</strong> A clear positive link; Australia sits <strong>below peers with similar GDP</strong>, indicating unrealised performance.</li>
+        <br>
+        <li><strong>NBN fibre upgrades and investment drove gains:</strong> 2024 peaks suggest <strong>upgrades reached</strong> homes and workplaces.</li>
+
+      </ul>
+      
+      
+    </div>
+
+        <!-- Data / Methods / Sources -->
+        <div>
+          <h2 class="section-title" style="padding-bottom: 0;">Dataset</h2>
+          <p>
+            <a href="https://datahub.io/@cheredia19/ookla-speedtest-global-index-fixed-broadband-2017-2024"
+               target="_blank">
+               Ookla Speedtest Global Index (2017-2024)
+            </a>
+          </p>
+          <p>
+            <a href="https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson"
+            target="_blank" >
+            Natural Earth Admin-0 Countries TopoJSON 
+         </a>
+          </p>
+          <p>
+            <a href="https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson"
+            target="_blank" >
+            Earth ocean layer TopoJSON 
+         </a>
+          </p>
+          <p>
+            <a href="https://github.com/teamookla/ookla-open-data?tab=readme-ov-file"
+            target="_blank">
+            Ookla Global Fixed and Mobile Network Performance Map Tiles (2019-2024)
+         </a>
+          </p>
+          <p>
+            <a href="https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files"
+            target="_blank">
+            States and Territories - 2021 - Shapefile
+         </a>
+          </p>
+          <p>
+            <a href="https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2024&start=1960&utm_source=chatgpt.com&view=chart"
+            target="_blank">
+            World Bank GDP per capita
+         </a>
+          </p>
+        </div>
+  
+
+
+        <footer class="page-footer" role="contentinfo">
+          <small>This visualisation was created by Shayan Sharif Nia on 19/10/2025</small>
+        </footer> 
+
+
+  </div>
+
+</body>
+
+
+
+</html>
+
+
+
+<style>
+  /* Ensure the container actually has width at render time */
+  #map{
+    width:100%;
+    max-width:1000px;
+    margin:auto;
+    display:block;
+    min-width:300px;    
+  }
+</style>

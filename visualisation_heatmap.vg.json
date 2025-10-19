@@ -1,0 +1,25 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": "container",
+    "height": 400,
+    "data": {
+      "url": "au_state_fixed_speeds_2019_2024_cleaned.csv",
+      "format": {"type":"csv","parse":{"year":"number","avg_download_mbps":"number"}}
+    },
+    "mark": "rect",
+    "encoding": {
+      "x": {"field":"year","type":"ordinal","sort":[2019,2020,2021,2022,2023,2024], "title":"Year"},
+      "y": {"field":"state","type":"nominal","title":"State"},
+      "color": {
+        "field":"avg_download_mbps","type":"quantitative","title":"Avg Mbps",
+        "scale": {"scheme":"purples"}
+      },
+      "tooltip": [
+        {"field":"state","title":"State"},
+        {"field":"year","title":"Year"},
+        {"field":"avg_download_mbps","title":"Avg Mbps","format":".1f"}
+      ]
+    },
+    "config": {"view":{"stroke":null}, "axis":{"labelFontSize":12}}
+  }
+  
