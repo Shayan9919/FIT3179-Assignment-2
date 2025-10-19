@@ -2,10 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": "container",
   "height": 360,
-
-  "config": {
-    "view": { "stroke": null }
-  },
+  "config": { "view": { "stroke": null } },
 
   "data": {
     "url": "Internet_speeds.csv",
@@ -21,7 +18,8 @@
     },
     { "filter": "upper(datum.iso3) == 'AUS'" },
     { "calculate": "datum.avg_download_mbps", "as": "aus_mbps" },
-    { "fold": ["world_mean", "aus_mbps"], "as": ["series", "value"] }
+    { "fold": ["world_mean", "aus_mbps"], "as": ["series", "value"] },
+    { "calculate": "datum.series === 'world_mean' ? 'World mean' : 'Aus Mbps'", "as": "series_label" }
   ],
 
   "layer": [
@@ -52,15 +50,13 @@
           "type": "nominal",
           "title": "",
           "scale": { "domain": ["world_mean", "aus_mbps"], "range": ["purple", "red"] },
-          "legend": { "labelExpr": "datum.label === 'world_mean' ? 'World mean' : 'Australia'" }
+          "legend": { "labelExpr": "{'world_mean':'World mean','aus_mbps':'Aus Mbps'}[datum.label]" }
         },
-        
         "tooltip": [
-          { "field": "year" },
-          { "field": "series", "title": "Series" },
+          { "field": "year", "title": "Year" },
+          { "field": "series_label", "title": "Group" },
           { "field": "value", "title": "Avg Mbps", "format": ".1f" }
         ]
-        
       }
     }
   ]

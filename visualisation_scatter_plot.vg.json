@@ -27,7 +27,7 @@
           },
           "opacity": {"expr": "HighlightAU ? 0.15 : 0.6"},
           "tooltip":[
-            {"field":"country"},{"field":"year"},
+            {"field":"country", "title":"Country"},{"field":"year"},
             {"field":"avg_download_mbps","title":"Mbps","format":".1f"},
             {"field":"gdp_pc_usd","title":"GDP pc","format":",.0f"}
           ]
