@@ -19,7 +19,7 @@
     { "filter": "upper(datum.iso3) == 'AUS'" },
     { "calculate": "datum.avg_download_mbps", "as": "aus_mbps" },
     { "fold": ["world_mean", "aus_mbps"], "as": ["series", "value"] },
-    { "calculate": "datum.series === 'world_mean' ? 'World mean' : 'Aus Mbps'", "as": "series_label" }
+    { "calculate": "datum.series === 'world_mean' ? 'World Average' : 'Aus Average'", "as": "series_label" }
   ],
 
   "layer": [
@@ -50,13 +50,25 @@
           "type": "nominal",
           "title": "",
           "scale": { "domain": ["world_mean", "aus_mbps"], "range": ["purple", "red"] },
-          "legend": { "labelExpr": "{'world_mean':'World mean','aus_mbps':'Aus Mbps'}[datum.label]" }
+          "legend": { "labelExpr": "datum.label === 'world_mean' ? 'World Average' : 'Aus Average'" }
         },
         "tooltip": [
           { "field": "year", "title": "Year" },
           { "field": "series_label", "title": "Group" },
           { "field": "value", "title": "Avg Mbps", "format": ".1f" }
         ]
+      }
+    },
+    {
+      "transform": [
+        { "filter": "datum.year == 2021 && datum.series == 'aus_mbps'" }
+      ],
+      "mark": { "type": "text", "align": "right", "dx": -8, "dy": -6, "fontSize": 12 },
+      "encoding": {
+        "x": { "field": "year", "type": "ordinal" },
+        "y": { "field": "value", "type": "quantitative" },
+        "text": { "value": "Australia leads in 2021 by a large margin" },
+        "color": { "value": "red" }
       }
     }
   ]
